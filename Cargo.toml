@@ -1,0 +1,18 @@
+[package]
+name = "jieba"
+version = "0.1.0"
+authors = ["Luozijun <luozijun.assistant@gmail.com>"]
+
+[[bin]]
+name = "mk_hmm_dict"
+path = "bin/mk_hmm_dict.rs"
+
+[[example]]
+name = "hmm_cut"
+path = "examples/hmm_cut.rs"
+
+
+[dependencies]
+
+
+
