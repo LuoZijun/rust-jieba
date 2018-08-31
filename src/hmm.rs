@@ -102,7 +102,7 @@ pub static PREV_STATUS: [[Status; 2]; 4] = [
 
 pub fn viterbi(text: &str) -> Vec<Status> {
     let chars_len = text.chars().count();
-    assert_eq!(chars_len > 1, true);
+    assert_eq!(chars_len > 0, true);
     
     // B, M, E, S
     let states = [Status::B, Status::M, Status::E, Status::S];
