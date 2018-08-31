@@ -4,7 +4,7 @@
 extern crate test;
 
 pub mod hmm;
-
+pub mod word_class;
 
 use std::hash::Hasher;
 use std::collections::HashSet;
