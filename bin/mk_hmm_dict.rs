@@ -1,3 +1,5 @@
+use std::collections::HashSet;
+
 
 #[derive(Debug, PartialEq, Eq)]
 enum State {
@@ -74,6 +76,9 @@ fn main(){
                     (key, val)
                 }).collect::<Vec<(char, f64)>>();
 
+                let map_keys = map.iter().map(|(k, _v)| *k).collect::<HashSet<char>>();
+                assert_eq!(map.len(), map_keys.len());
+                
                 // map.sort_unstable_by(|a, b| (a.0 as usize).cmp(&(b.0 as usize)) );
                 map.sort_unstable_by_key(| &(k, _)| k );
                 
