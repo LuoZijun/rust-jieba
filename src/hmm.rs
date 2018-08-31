@@ -102,11 +102,12 @@ pub static PREV_STATUS: [[Status; 2]; 4] = [
 
 pub fn viterbi(text: &str) -> Vec<Status> {
     let chars_len = text.chars().count();
-
+    assert_eq!(chars_len > 1, true);
+    
     // B, M, E, S
     let states = [Status::B, Status::M, Status::E, Status::S];
 
-    let mut V = vec![ [0.0f64; 4]; chars_len ];
+    let mut V = vec![ [MIN_FLOAT; 4]; chars_len ];
     let mut path = vec![ vec![Status::B; chars_len]; 4];
 
     let get_emit_val = |y: &Status, c: &char| -> f64 {
@@ -128,23 +129,20 @@ pub fn viterbi(text: &str) -> Vec<Status> {
         } else {
             let mut new_path = vec![vec![Status::B; chars_len]; 4];
 
-            let t = i;
-            
             for y in states.iter() {
                 let emit_val = get_emit_val(&y, &c);
                 let (prob, state) = PREV_STATUS[*y as usize].iter()
                     .map(|y0| {
-                        let n1 = V[t - 1][*y0 as usize];
-                        // let n2 = PROB_TRANS[*y0 as usize].get(*y as usize).unwrap_or(&MIN_FLOAT);
+                        let n1 = V[i - 1][*y0 as usize];
                         let n2 = PROB_TRANS[*y0 as usize][*y as usize];
-                        ( n1 + n2 + emit_val, y0.clone() )
+                        ( n1 + n2 + emit_val, *y0 )
                     })
                     .max_by(|x, y| x.partial_cmp(y).unwrap_or(cmp::Ordering::Equal))
                     .unwrap();
                 
-                V[t][*y as usize] = prob;
+                V[i][*y as usize] = prob;
                 let mut prev_path = path[state as usize].clone();
-                prev_path[t] = *y;
+                prev_path[i] = *y;
                 new_path[*y as usize] = prev_path;
             }
 
@@ -160,7 +158,7 @@ pub fn viterbi(text: &str) -> Vec<Status> {
         .max_by(|x, y| x.partial_cmp(y).unwrap_or(cmp::Ordering::Equal))
         .unwrap();
     
-    let best_path: Vec<Status> = path[*state as usize].iter().map(|x| *x).collect();
+    let best_path = path[*state as usize].clone();
 
     best_path
 }
