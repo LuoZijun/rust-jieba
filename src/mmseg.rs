@@ -15,6 +15,8 @@
 // 
 // 转换搜狗词库的脚本: https://github.com/archerhu/scel2mmseg
 // 
+#[allow(unused_imports)]
+use test;
 
 #[path = "./mmseg_dict.rs"]
 mod mmseg_dict;
@@ -302,4 +304,14 @@ impl<'a> WordSegmentation for &'a str {
     fn words(&self) -> Vec<String> {
         self.chars().collect::<Vec<char>>().words()
     }
+}
+
+
+#[bench]
+fn bench_mmseg_weicheng(b: &mut test::Bencher) {
+    let text = include_str!("../data/weicheng.txt");
+    b.iter(|| {
+        let _ = text.words();
+    });
+    b.bytes += text.len() as u64;
 }
