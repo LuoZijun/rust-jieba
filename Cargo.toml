@@ -7,12 +7,29 @@ authors = ["Luozijun <luozijun.assistant@gmail.com>"]
 name = "mk_hmm_dict"
 path = "bin/mk_hmm_dict.rs"
 
+[[bin]]
+name = "mk_mmseg_dict"
+path = "bin/mk_mmseg_dict.rs"
+
+[[bin]]
+name = "mk_pinyin_dict"
+path = "bin/mk_pinyin_dict.rs"
+
+
+# [[bin]]
+# name = "mmseg"
+# path = "src/mmseg.rs"
+
 [[example]]
 name = "hmm_cut"
 path = "examples/hmm_cut.rs"
+[[example]]
+name = "mmseg_cut"
+path = "examples/mmseg_cut.rs"
 
 
 [dependencies]
-
+log = "0.4"
+env_logger = "0.5"
 
 

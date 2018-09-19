@@ -2,8 +2,13 @@
 #![allow(non_snake_case)]
 
 extern crate test;
+#[macro_use]
+extern crate log;
+extern crate env_logger;
+
 
 pub mod hmm;
+pub mod mmseg;
 pub mod word_class;
 
 use std::hash::Hasher;

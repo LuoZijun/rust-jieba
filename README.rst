@@ -7,6 +7,12 @@ Rust Jieba
 .. contents::
 
 
+分词方法
+----------
+
+*   HMM
+*   MMSEG
+
 
 Build
 -----------
@@ -17,10 +23,11 @@ Build
     cd rust-jieba
 
     cargo run --bin mk_hmm_dict > src/hmm_dict.rs
+    cargo run --bin mk_mmseg_dict > src/mk_mmseg_dict.rs
     cargo build
 
     cargo run --example hmm_cut
-
+    cargo run --example mmseg_cut
     cargo test
     cargo bench
 
